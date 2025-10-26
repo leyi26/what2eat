@@ -18,7 +18,7 @@ class Settings(BaseSettings):
   
   # PostgreSQL 配置
   db_host: str = "localhost"
-  db_post: int = 5432
+  db_port: int = 5432
   db_user: str = "postgres"
   db_password: str = "postgres"
   db_name: str = "what2eat"
@@ -51,7 +51,7 @@ class Settings(BaseSettings):
     if self.db_type == "postgres":
       return (
         f"postgresql+asyncpg://{self.db_user}:{self.db_password}"
-        f"@{self.db_host}:{self.db_post}/{self.db_name}"
+        f"@{self.db_host}:{self.db_port}/{self.db_name}"
       )
     elif self.db_type == "sqlite":
       return f"sqlite+aiosqlite:///{self.sqlite_db_path}"
@@ -98,8 +98,8 @@ class Settings(BaseSettings):
   )
   
 
-@lru_cache
-def get_settings() -> Settings:
-  return Settings()
+# @lru_cache
+# def get_settings() -> Settings:
+#   return Settings()
 
-settings = get_settings()
+settings = Settings()
